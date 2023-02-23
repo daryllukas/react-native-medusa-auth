@@ -6,7 +6,7 @@ const defaultContext = {
   setCustomer: async () => {},
 };
 
-const StoreContext = createContext(defaultContext);
+export const StoreContext = createContext(defaultContext);
 
 const reducer = (state, action) => {
   switch (action.type) {
