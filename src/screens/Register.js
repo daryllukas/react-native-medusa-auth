@@ -1,9 +1,13 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Input } from '@rneui/themed';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { medusaClient } from '../lib/medusa-client';
+import { StoreContext } from '../context/store-context';
+import { Alert } from 'react-native';
 
 export default function RegisterScreen({ navigation }) {
+  const { setCustomer } = useContext(StoreContext);
+
   const [values, setValues] = useState({
     firstName: '',
     lastName: '',
@@ -28,10 +32,11 @@ export default function RegisterScreen({ navigation }) {
         password: values.password,
       })
       .then(({ customer }) => {
-        console.log(customer.id);
+        setCustomer(customer);
       })
       .catch((err) => {
-        console.log(err);
+        setCustomer(null);
+        Alert.alert('Error', 'Registration failed');
       });
   };
 

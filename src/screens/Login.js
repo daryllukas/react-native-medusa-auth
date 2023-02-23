@@ -2,8 +2,12 @@ import { StyleSheet, View } from 'react-native';
 import { Button, Input } from '@rneui/themed';
 import { useState } from 'react';
 import { medusaClient } from '../lib/medusa-client';
+import { StoreContext } from '../context/store-context';
+import { Alert } from 'react-native';
 
 export default function LoginScreen({ navigation }) {
+  const { setCustomer } = useContext(StoreContext);
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -24,10 +28,11 @@ export default function LoginScreen({ navigation }) {
         password: values.password,
       })
       .then(({ customer }) => {
-        console.log(customer.id);
+        setCustomer(customer);
       })
       .catch((err) => {
-        console.log(err);
+        setCustomer(null);
+        Alert.alert('Error', 'Login failed');
       });
   };
 
@@ -47,7 +52,12 @@ export default function LoginScreen({ navigation }) {
         value={values['password']}
         onChange={handleChange('password')}
       />
-      <Button size="lg" containerStyle={styles.button} title="Submit" onPress={handleSubmit} />
+      <Button
+        size="lg"
+        containerStyle={styles.button}
+        title="Submit"
+        onPress={handleSubmit}
+      />
       <Button
         title="I don't have an account"
         type="clear"
