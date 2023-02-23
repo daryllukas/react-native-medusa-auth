@@ -1,11 +1,9 @@
 import { StyleSheet, View } from 'react-native';
 import { Button, Input } from '@rneui/themed';
 
-export default function RegisterScreen({ navigation }) {
+export default function LoginScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Input placeholder="First Name" style={styles.input} />
-      <Input placeholder="Last Name" style={styles.input} />
       <Input
         placeholder="Email"
         keyboardType="email-address"
@@ -14,10 +12,10 @@ export default function RegisterScreen({ navigation }) {
       <Input placeholder="Password" style={styles.input} />
       <Button size="lg" containerStyle={styles.button} title="Submit" />
       <Button
-        title="I already have an account"
+        title="I don't have an account"
         type="clear"
         size="lg"
-        onPress={() => navigation.replace('Login')}
+        onPress={() => navigation.replace('Register')}
       />
     </View>
   );
